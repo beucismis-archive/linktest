@@ -1,0 +1,11 @@
+name: Test Workflow
+
+on: [push]
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: beucismis-archive/linktest@main
+      with:
+        file-path: "README.md,tests/TEST.md"

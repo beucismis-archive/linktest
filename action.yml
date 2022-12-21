@@ -1,0 +1,17 @@
+name: "linktest"
+author: "beucismis"
+description: "Test all links in repository files if they are alive or dead"
+inputs:
+  file-path:
+    required: true
+    description: "Specify additional files you want to test"
+
+runs:
+  using: composite
+  steps:
+  - name: Run
+    shell: bash
+    run: |
+      cd ${{ github.action_path }}
+      python -m pip install -r requirements.txt
+      python endpoint.py
