@@ -36,7 +36,7 @@ def main():
                 total_dead_link += 1
                 output += f"\t{link} - STATUS: {response.status}\n"
 
-    if not bool(dead_link):
+    if not bool(total_dead_link):
         generate_output("All links are good!")
     else:
         generate_output(f"{output}\nERROR: {total_dead_link} dead links found!")
