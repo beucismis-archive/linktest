@@ -8,4 +8,4 @@ jobs:
     steps:
     - uses: beucismis-archive/linktest@main
       with:
-        file-path: "README.md,tests/TEST.md"
+        file-paths: "README.md,tests/test.md"

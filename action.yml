@@ -2,7 +2,7 @@ name: "linktest"
 author: "beucismis"
 description: "Test all links in repository files if they are alive or dead"
 inputs:
-  file-path:
+  file-paths:
     required: true
     description: "Specify additional files you want to test"
 

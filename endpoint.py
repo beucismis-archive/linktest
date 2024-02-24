@@ -1,44 +1,46 @@
 import re
 from urllib3 import PoolManager
 
-import constant
+import constants
 
 
-def generate_output(verbose: str) -> None:
-    output = (
-        "\n=========================> LINKTEST <=========================\n\n"
-        f"{verbose}"
-        "\n\n==============================================================\n"
-    )
-    print(output.expandtabs(2))
+output = str()
+total_dead_link = 0
+http = PoolManager()
 
 
-def main() -> None:
-    verbose = ""
-    dead_link = 0
-    http = PoolManager()
+def generate_output(output: str) -> None:
+    print(
+		(
+    	    "\n=========================> LINKTEST <========================="
+    	    f"\n\n{output}\n\n"
+    	    "==============================================================\n"
+	    ).expandtabs(2)
+	)
 
-    for path in constant.FILE_PATH:
-        verbose += f"FILE: {path}\n"
+
+def main():
+    for path in constants.FILE_PATHS:
+        output += f"FILE: {path}\n"
 
         with open(path) as file:
-            matches = re.findall(constant.URL_REGEX, file.read())
+            matches = re.findall(constants.URL_REGEX, file.read())
 
         if not len(matches):
-            verbose += "\tLink not found!\n"
+            output += "\tLink not found!\n"
             continue
 
         for link in matches:
             response = http.request("GET", link)
 
             if response.status != 200:
-                dead_link += 1
-                verbose += f"\t{link} - STATUS: {response.status}\n"
+                total_dead_link += 1
+                output += f"\t{link} - STATUS: {response.status}\n"
 
     if not bool(dead_link):
         generate_output("All links are good!")
     else:
-        generate_output(f"{verbose}\nERROR: {dead_link} dead links found!")
+        generate_output(f"{output}\nERROR: {total_dead_link} dead links found!")
         exit(1)
 
 
