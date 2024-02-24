@@ -15,9 +15,9 @@ def generate_output(output: str) -> None:
 
 
 def main():
-	output = str()
-	total_dead_link = 0
-	http = PoolManager()
+    output = str()
+    total_dead_link = 0
+    http = PoolManager()
 
     for path in constants.FILE_PATHS:
         output += f"FILE: {path}\n"
